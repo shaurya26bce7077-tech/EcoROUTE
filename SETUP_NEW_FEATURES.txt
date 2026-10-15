@@ -1,0 +1,42 @@
+ECOROUTE - UPDATED HACKATHON VERSION
+
+WHAT WAS ADDED
+1. After claiming food, a GET DIRECTIONS button opens Google Maps at the restaurant location.
+2. Each browser gets a persistent anonymous consumer ID (no login required for the hackathon).
+3. Every new consumer starts at 100% reliability.
+4. Marking a pickup complete adds 2 points, capped at 100.
+5. Marking a no-show removes 20 points.
+6. My claims page shows claim history, pickup/no-show status and reliability score.
+7. The database uses RPC functions so claim/pickup/no-show updates happen server-side.
+
+IMPORTANT SUPABASE STEP
+If you already have the old EcoRoute database, use one of these approaches:
+
+OPTION A - RESET DEMO DATABASE (recommended for the hackathon)
+Run this first:
+DROP TABLE IF EXISTS public.claims CASCADE;
+DROP TABLE IF EXISTS public.consumer_profiles CASCADE;
+DROP TABLE IF EXISTS public.listings CASCADE;
+
+Then run:
+supabase/schema.sql
+supabase/seed.sql
+
+OPTION B - KEEP EXISTING LISTINGS
+Run:
+supabase/update_reliability.sql
+
+LOCAL SETUP
+1. Install Node.js 24 LTS (or another compatible Node 24 release).
+2. Extract this ZIP.
+3. Make sure .env.local contains your Supabase URL and anon key.
+4. Open terminal in the project folder.
+5. Run: npm install
+6. Run: npm run dev
+7. Open: http://localhost:3000
+
+DIRECTIONS
+The Get directions button opens Google Maps using the listing latitude/longitude. No Google Maps API key is required for this feature.
+
+RELIABILITY
+The hackathon version is intentionally no-auth. The score is tied to an anonymous browser ID. For production, replace this with Supabase Auth and let the store verify pickup/no-show events.
